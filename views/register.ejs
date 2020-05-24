@@ -1,0 +1,55 @@
+<%- include('partials/header'); %>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-3 col-md-2"></div>
+        <div class="col-lg-6 col-md-8">
+            <div class="container">
+                <form action="/register" method="POST">
+                    <div class="alert alert-info" role="alert">
+                        <h4>New User Register</h4>
+                    </div>
+                    <div class="form-group">
+                        <label for="puranaam">Full Name</label>
+                        <input type="text" class="form-control" id="puranaam" name="fullname" value="" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="chitti">Email</label>
+                        <input type="email" class="form-control" id="chitti" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="maalik">Username</label>
+                        <input type="text" class="form-control" id="maalik" name="username" value="" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="kunji">password</label>
+                        <input type="password" class="form-control" id="kunji" name="password" required>
+                    </div>
+                    <div class="">
+                        <!-- <button type="submit" class="btn btn-primary mx-auto">Submit</button> -->
+                        <input type="submit" class="btn btn-primary w-100" value="Submit" />
+                    </div>
+                </form>
+                <hr>
+                <div class="row">
+                    <div class="col">
+                        <a href="/auth/google" class="btn border-primary w-100 h-100">
+                            <img src="../images/google.png" alt="G" class="mx-2" style="width: 30px;height: 30px;">
+                            Sign in with Google
+                        </a>
+                    </div>
+                    <div class="col ">
+                        <a href="/auth/facebook" class="btn border-primary w-100 h-100">
+                            <img src="../images/facebook.png" alt="G" class="mx-2" style="width: 30px;height: 30px;">
+                            Sign in with Facebook
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-2"></div>
+    </div>
+    <hr>
+</div>
+
+<%- include('partials/footer'); %>

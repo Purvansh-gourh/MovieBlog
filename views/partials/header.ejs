@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Movie Blog</title>
+    <link rel="icon" href="/images/logo.png" type="image/x-icon">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/stylesheets/main.css">
+    <link rel="stylesheet" href="/javascripts/main.js">
+
+</head>
+
+<body id="body">
+    <nav class="navbar navbar-expand-sm justify-content-end" id="mainnav">
+        <div class="navbar-brand mr-auto">
+
+            <a href="/"><img src="/images/logo.png" id="navlogo" title="landing page"></a>
+            <a class="abarlink ml-2" href="/movies" title="movies homepage">
+                MovieBlog</a>
+        </div>
+        <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent">
+            <ul class="navbar-nav text-right">
+                <% if(!currentUser){ %>
+                <li class="nav-item">
+                    <a class="nav-link abarlink" href="/login">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link abarlink" href="/register">Sign Up</a>
+                </li>
+                <% }else{ %>
+                <li class="nav-item">
+                    <a class="nav-link abarlink" href="/dashboard" title="Dashboard">
+                        Signed In as <%= currentUser.username %>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link abarlink" href="/logout">Logout</a>
+                </li>
+                <% } %>
+            </ul>
+        </div>
+    </nav>
+    <br>
+    <div class="container">
+        <% if(error && error.length > 0){ %>
+        <div class="alert alert-danger" role="alert">
+            <%= error %>
+        </div>
+        <% }else if(success && success.length > 0){ %>
+        <div class="alert alert-success" role="alert">
+            <%= success %>
+        </div>
+        <% } %>
+    </div>

@@ -1,0 +1,360 @@
+<%- include('../partials/dashhead'); %>
+
+<!-- <div class="container-fluid"> -->
+<div class="row m-0">
+    <div class="col-md-3 col-lg-2 col-12 p-0" id="dashnav">
+        <div id="navafter">
+
+        </div>
+        <div class="row">
+            <div class="col-md-12 col">
+                <a href="#" class="nav-link side-link active">
+                    <div class="row">
+                        <div class="col-12 col-md-2">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <div class="d-none d-md-inline col-md-8">
+                            Dashboard
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-12 col">
+                <a href="/dashboard/edit" class="nav-link side-link">
+                    <div class="row">
+                        <div class="col-12 col-md-2">
+                            <i class="fas fa-user-edit"></i>
+                        </div>
+                        <div class="d-none d-md-inline col-md-8">
+                            Edit Profile
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-12 col">
+                <a href="/movies" class="nav-link side-link">
+                    <div class="row">
+                        <div class="col-12 col-md-2">
+                            <i class="fas fa-film"></i>
+                        </div>
+                        <div class="d-none d-md-inline col-md-8">
+                            Movies
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-12 col">
+                <form action="/dashboard?_method=DELETE" method="POST" id="deleteform">
+                    <a class="nav-link side-link" href="#" onclick="deleteAccount()">
+                        <div class="row">
+                            <div class="col-12 col-md-2">
+                                <i class="fas fa-trash"></i>
+                            </div>
+                            <div class="d-none d-md-inline col-md-8">
+                                Delete Account
+                            </div>
+                        </div>
+                    </a>
+                </form>
+            </div>
+            <div class="col-md-12 col">
+                <a href="/logout" class="nav-link side-link">
+                    <div class="row">
+                        <div class="col-12 col-md-2">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </div>
+                        <div class="d-none d-md-inline col-md-8">
+                            Logout
+                        </div>
+                    </div>
+                </a>
+            </div>
+            </ul>
+        </div>
+    </div>
+    <div class="col-12 col-md-9 col-lg-10 px-0 ml-auto">
+
+        <div class="m-2">
+            <% if(error && error.length > 0){ %>
+            <div class="alert alert-danger" role="alert">
+                <%= error %>
+            </div>
+            <% }else if(success && success.length > 0){ %>
+            <div class="alert alert-success" role="alert">
+                <%= success %>
+            </div>
+            <% } %>
+        </div>
+
+        <div class="alert alert-info m-2" role="alert">
+            <h4> Profile Details</h4>
+        </div>
+        <div class="card m-2">
+            <div class="row no-gutters">
+                <div class="col-md-4" id="profileimg">
+                    <% if(currentUser.facebook.photo || currentUser.google.photo){ %>
+                    <img src="<%= currentUser.facebook.photo ? currentUser.facebook.photo : currentUser.google.photo %>"
+                        alt="No profile img available" style="border-radius: 50%;" class="mt-4">
+                    <% }else{ %>
+                    <img src="/images/noprofile.png" alt="No profile img available" style="border-radius: 50%;"
+                        class="mt-4">
+                    <% } %>
+
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title"><%= currentUser.fullName%> </h5>
+                        <div class="row">
+                            <div class="col">
+                                <table class="table table-hover">
+                                    <tr>
+                                        <td>username</td>
+                                        <td>:</td>
+                                        <td><%= currentUser.username %> </td>
+                                    </tr>
+                                    <tr>
+                                        <td>email</td>
+                                        <td>:</td>
+                                        <td><%= currentUser.email %> </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Google</td>
+                                        <% if(currentUser.google.id){ %>
+                                        <td>Linked</td>
+                                        <td><i class="far fa-check-circle" style="color:green"></i></td>
+                                        <% }else{ %>
+                                        <td>pending</td>
+                                        <td>
+                                            <img src="/images/wrong.png" style="width: 1.2em;height: 1.2em">
+                                            <a href="/auth/google" class="btn btn-outline-success float-right">Link
+                                                now</a>
+                                        </td>
+                                        <% } %>
+                                    </tr>
+                                    <tr>
+                                        <td>Facebook</td>
+                                        <% if(currentUser.facebook.id){ %>
+                                        <td>Linked</td>
+                                        <td><i class="far fa-check-circle" style="color:green"></i></td>
+                                        <% }else{ %>
+                                        <td>pending</td>
+                                        <td>
+                                            <img src="/images/wrong.png" style="width: 1.2em;height: 1.2em">
+                                            <a href="/auth/facebook" class="btn btn-outline-success float-right">Link
+                                                now</a>
+                                        </td>
+                                        <% } %>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="alert alert-info m-2" role="alert">
+            <h5>Review Statistics</h5>
+        </div>
+        <% if(labeldata != '[]'){ %>
+        <div class="row mx-2">
+            <div class="col-1 col-lg-3"> </div>
+            <div class="col-10 col-lg-6">
+                <canvas id="myChart1"></canvas>
+                <br>
+            </div>
+            <div class="col-1 col-lg-3"></div>
+            <div class="col-lg-2"></div>
+            <div class="col-12 col-lg-8">
+                <canvas id="myChart2"></canvas>
+                <br>
+                <h4>My posts :</h4>
+                <br>
+                <table class="table table-hover">
+                    <thead>
+                        <th>index</th>
+                        <th>title</th>
+                        <th></th>
+                    </thead>
+                    <% counter = 1 %>
+                    <% JSON.parse(labeldata).forEach(function(item){%>
+                    <tr>
+                        <td><%= counter++ %></td>
+                        <td><%= item %></td>
+                        <td>
+                            <a href="/movies/<%= movieID[counter-2]%>" class="btn btn-sm btn-outline-secondary">Read
+                                More</a>
+                        </td>
+                    </tr>
+                    <%}) %>
+                </table>
+            </div>
+        </div>
+        <% }else{ %>
+        <div class="m-3">
+            No review made ... do one now <a href="/movies">Click here</a>
+        </div>
+        <% } %>
+
+
+
+        <!-- <div id="mydiv" data-movie=""></div> -->
+        <!-- </div> -->
+    </div>
+</div>
+<% - include('../partials/footer'); %>
+
+
+<style>
+    body {
+        overflow-y: scroll;
+        /* left: 0; */
+        overflow-x: hidden;
+    }
+
+    i {
+        font-size: 20px;
+    }
+
+    .side-link {
+        color: black;
+    }
+
+    .side-link:hover {
+        color: #007bff;
+    }
+
+    .side-link.active {
+        color: #007bff;
+        ;
+    }
+
+    #dashnav {
+        background: rgb(250, 250, 255);
+        background: -webkit-linear-gradient(to right, rgb(250, 250, 255), rgb(238, 240, 255));
+        background: linear-gradient(to right, rgb(250, 250, 255), rgb(238, 240, 255));
+    }
+
+    #dashnav:hover {
+        border-right: 1px solid rgb(209, 209, 209);
+    }
+
+    @media screen and (min-width: 768px) {
+        #dashnav {
+            position: fixed;
+            min-height: 95vh;
+            background: url("/images/sidenav.jpg");
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        #navafter {
+            background: white;
+            opacity: 0.6;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            content: '';
+        }
+
+        #dashnav:hover #navafter {
+            opacity: 0.3;
+        }
+    }
+</style>
+
+
+
+
+<script>
+    function deleteAccount() {
+        console.log("here");
+        if (confirm("Do you really want to delete your account ?\n This will automatically delete all the posts")) {
+            $("#deleteform").submit();
+        }
+    }
+
+    $(document).ready(function () {
+
+        var likes = JSON.parse('<%- likes%>');
+        var labeldata = JSON.parse('<%- labeldata%>')
+        var labelindex = [];
+        for (var i = 1; i <= labeldata.length; i++)
+            labelindex.push(i.toString());
+
+        console.log(labelindex);
+        console.log(likes);
+        backColor = [
+            'rgb(252, 243, 207,0.8)',
+            'rgb(246, 221, 204,0.8)',
+            'rgb(214, 234, 248,0.8)',
+            'rgb(214, 219, 223,0.8)',
+            'rgb(213, 245, 227,0.8)',
+            'rgb(232, 218, 239,0.8)'
+        ];
+        bordColor = [
+            'rgb(252, 243, 207,1)',
+            'rgb(246, 221, 204,1)',
+            'rgb(214, 234, 248,1)',
+            'rgb(214, 219, 223,1)',
+            'rgb(213, 245, 227,1)',
+            'rgb(232, 218, 239,1)'
+        ];
+
+        var ctx1 = document.getElementById("myChart1").getContext('2d');
+        var newChart = new Chart(ctx1, {
+            type: 'pie',
+            data: {
+                labels: labeldata,
+                datasets: [{
+                    label: '# of likes',
+                    data: likes,
+                    backgroundColor: backColor,
+                    borderColor: bordColor,
+                    hoverBorderColor: '#1B2631',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                segmentShowStroke: true,
+                maintainAspectRatio: true,
+                animateScale: true,
+                animation: {
+                    duration: 1000,
+                    easing: 'easeInCubic',
+                }
+
+            }
+        });
+        likes.push(0);
+        var ctx2 = document.getElementById("myChart2").getContext('2d');
+        var newChart = new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: labelindex,
+                datasets: [{
+                    label: '# of likes',
+                    data: likes,
+                    backgroundColor: backColor,
+                    borderColor: bordColor,
+                    hoverBorderColor: '#1B2631',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                segmentShowStroke: true,
+                maintainAspectRatio: true,
+                animateScale: true,
+                animation: {
+                    duration: 1000,
+                    easing: 'easeInCubic',
+                }
+
+            }
+        });
+    });
+</script>

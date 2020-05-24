@@ -1,0 +1,210 @@
+<%- include('../partials/header'); %>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-9 col-md-12 col-sm-12">
+            <div class="card mb-3 border-info">
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                        <img src="<%= movie.image %>" class="card-img" alt="Image not available">
+
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h1 class="card-title"><span class="mx-auto"><%= movie.name %></span></h1>
+                            <hr class="border-secondary">
+                            <h3>Review :</h3>
+                            <div class="container">
+                                <p class="card-text" align="justify"><%= movie.review %></p>
+                                <p>Submitted By : <%= movie.author.username %></p>
+                                <small>
+                                    <p>Last updated : <%= moment(movie.lastUpdated).format('lll') %>
+                                    </p>
+                                    <% if(likedby){ %>
+                                    <p id="likedby">
+                                        <% if(movie.likes.length>1){ %>
+                                        Liked by <%= likedby%> and <%= movie.likes.length - 1%> other
+                                        <% }else{ %>
+                                        Liked by <%= likedby%>
+                                        <% } %>
+                                    </p>
+                                    <% } %>
+
+                                </small>
+                                <% if(movie.rating){ %>
+                                <% for(var i = 0;i < movie.rating && i<=5;i++ ){ %>
+                                <i class="fas fa-star" style="color:#FD4;font-size: 20px;"></i>
+                                <% }for(var i = movie.rating ; i < 5;i++){ %>
+                                <i class="far fa-star" style="font-size: 20px;"></i>
+                                <% }} %>
+                            </div>
+                            <br>
+                            <div class="d-flex">
+
+                                <% if( currentUser && movie.likes.indexOf(currentUser._id) > -1){%>
+                                <form id="unlikeform"
+                                    action="/movies/<%=movie._id%>/like?act=0&userid=<%= currentUser?currentUser._id:0%>"
+                                    method="POST">
+                                    <i id="unlikebtn" class="fas fa-heart p-2 ml-2" onclick="unlikeform.submit()"></i>
+                                </form>
+                                <% }else{ %>
+                                <form id="likeform"
+                                    action="/movies/<%=movie._id%>/like?act=1&userid=<%= currentUser?currentUser._id:0%>"
+                                    method="POST">
+                                    <i id="likebtn" class="far fa-heart p-2 ml-2" onclick="likeform.submit()"></i>
+
+                                </form>
+                                <% } %>
+                                <% if(currentUser && movie.author.id.equals(currentUser._id)){ %>
+
+                                <div class="ml-auto p-2">
+                                    <form style="display:inline;" class="float-right"
+                                        action="/movies/<%=movie._id%>?_method=DELETE" method="POST">
+                                        <button type="submit"
+                                            onclick="return confirm('Are you sure you want to delete this post ?');"
+                                            class=" ml-2 btn btn-sm btn-outline-danger">Delete</button>
+                                    </form>
+                                    <a href="/movies/<%=movie._id%>/edit" class="btn btn-sm btn-outline-warning">
+                                        Edit
+                                    </a>
+                                </div>
+
+                                <% } %>
+                            </div>
+                            <hr class="mb-0 border-secondary">
+
+                            <div class="d-flex">
+                                <div class="mr-auto p-2">
+                                    <h5 class=" mt-2">Comments :</h5>
+                                </div>
+                                <div class=" p-2"><a class="btn btn-outline-success btn-sm pull-right"
+                                        href="/movies/<%= movie._id%>/comments/new">Add
+                                        Comment</a></div>
+                            </div>
+                            <!-- <div class="container-fluid"> -->
+
+                            <% movie.comments.forEach(function(comment){ %>
+                            <hr class="m-0">
+                            <!-- <p> -->
+                            <div>
+                                <div class="d-flex">
+                                    <div class="mr-auto ml-2">
+                                        <strong><%= comment.author.username%></strong>
+                                    </div>
+                                    <div class="px-2">
+                                        <small><%= moment(comment.lastUpdated).fromNow() %></small>
+                                    </div>
+                                </div>
+                                <!-- </p> -->
+                                <p class="mb-0 ml-2"><%= comment.text  %> </p>
+                                <div class="d-flex">
+                                    <div class="p-2">
+                                        <% if(comment.rating){ %>
+                                        <% for(var i = 0;i < comment.rating && i<=5;i++ ){ %>
+                                        <i class="fas fa-star" style="color:#FD4;font-size: 15px;"></i>
+                                        <% }for(var i = comment.rating ; i < 5;i++){ %>
+                                        <i class="far fa-star" style="font-size: 15px;"></i>
+                                        <% }} %>
+                                    </div>
+                                    <% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
+
+                                    <div class="ml-auto p-2">
+                                        <form style="display:inline;" class="float-right"
+                                            action="/movies/<%= movie._id%>/comments/<%=comment._id%>?_method=DELETE"
+                                            method="POST">
+                                            <button type="submit"
+                                                onclick="return confirm('Are you sure you want to delete this comment ?');"
+                                                class=" ml-2  btn btn-sm btn-outline-danger">Delete</button>
+                                        </form>
+                                        <a href="/movies/<%=movie._id%>/comments/<%=comment._id%>/edit" class=" btn btn-sm
+                                            btn-outline-warning">
+                                            Edit
+                                        </a>
+                                    </div>
+
+                                    <% } %>
+                                </div>
+                            </div>
+
+
+                            <% }) %>
+
+                            <!-- </div> -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container-fluid">
+                    <% if(founded){ %>
+                    <hr class="border-info">
+                    <h2>Movie Details</h2>
+                    <table class="table table-hover">
+                        <% for (var key of Object.keys(founded)) { %>
+                        <% var arr = ["Ratings","Response","Poster","Website"]%>
+                        <% if(arr.indexOf(key) == -1){ %>
+                        <tr>
+                            <th scope="row">
+                                <%=key%>
+                            </th>
+                            <td>
+                                <strong>:</strong>
+                            </td>
+                            <td>
+                                <p align="justify"><%=founded[key]%> </p>
+                            </td>
+                        </tr>
+                        <%} } %>
+                    </table>
+                    <% } %>
+                </div>
+            </div>
+
+
+
+        </div>
+
+        <div class="col-lg-3 col-md-12 col-sm-12">
+            <div class="">
+                <div class="row">
+                    <!-- <div class="container"> -->
+                    <div class="alert alert-info col-12" role="alert">
+                        Similar results ....
+                    </div>
+                    <!-- </div> -->
+                </div>
+                <% if(movie["searchfor"]){ %>
+                <div class="row">
+                    <% movie["searchfor"]["Search"].slice(0,6).forEach(function(currmovie){ %>
+                    <div class="col-lg-12 col-md-4 col-sm-4 col-6 mb-2">
+                        <div class="card mb-3 h-100">
+                            <div class="row no-gutters">
+                                <div class="col-md-4">
+                                    <img src="<%= currmovie["Poster"] %>" class="card-img" alt="Image Not Available">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><%= currmovie["Title"] %></h5>
+                                        <p class="card-text">Year : <%= currmovie["Year"] %></p>
+                                        <p class="card-text">Type : <%= currmovie["Type"] %></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <% }) %>
+                </div>
+                <% }else{ %>
+                <div class="row">
+                    <!-- <div class="container"> -->
+                    <div class="alert alert-danger col-12" role="alert">
+                        No Results found ....
+                    </div>
+                    <!-- </div> -->
+                </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/contactfooter'); %>
+<%- include('../partials/footer'); %>

@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Movie Blog</title>
+    <link rel="icon" href="/images/logo.png" type="image/x-icon">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <!-- <script src='https://kit.fontawesome.com/a076d05399.js'></script> -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/stylesheets/main.css">
+    <!-- <link rel="stylesheet" href="/javascripts/main.js"> -->
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark justify-content-end py-0">
+        <a class="navbar-brand mr-auto loadingnav d-none d-sm-block" href="/movies">MovieBlog</a>
+        <a class="navbar-brand mr-auto loadingnav ml-1" href="/movies">
+            <h2 style="font-family:'Edo';">HomePage</h2>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent">
+            <ul class="navbar-nav text-right">
+                <% if(!currentUser){ %>
+                <li class="nav-item">
+                    <a class="nav-link loadingnav" href="/login">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link loadingnav" href="/register">Sign Up</a>
+                </li>
+                <% }else{ %>
+                <li class="nav-item">
+                    <a class="nav-link loadingnav" href="/dashboard">
+                        Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link loadingnav" href="/logout">Logout</a>
+                </li>
+                <% } %>
+            </ul>
+        </div>
+    </nav>
+
+
+
+    <!-- <h1>Landing page</h1>
+<p>Welcome to Movie Blog</p>
+<a href="/movies">View all movies</a> -->
+
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
+        </ol>
+
+        <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active" style="background-image: url('images/loading_page/harryPotter.jfif');">
+                <!-- <h3 id="loadingtitle">One place for all your favourite Movies and Series</h3> -->
+                <div class="carousel-caption" id="Harry">
+                    <h1 class="display-1">Harry Potter</h1>
+                    <h2 class="d-none d-md-block">After all this time ? .. Always</h2>
+                </div>
+            </div>
+            <div class="carousel-item" style="background-image: url('images/loading_page/sherlock.jpg');">
+                <div class="carousel-caption" id="Sherlock">
+                    <h2 class="display-4">Sherlock Holmes</h2>
+                    <h4 class="d-none d-md-block"> Are &nbsp you &nbsp sherlocked &nbsp ?</h4>
+                </div>
+            </div>
+            <div class="carousel-item" style="background-image: url('images/loading_page/lotr.jpg');">
+                <div class="carousel-caption " id="Lotr">
+                    <h2 class="display-4">The Lord of the Rings</h2>
+                    <h4 class="d-none d-md-block">One Ring to rule them all, One Ring to find them,
+                        One Ring to bring them all, and in the darkness bind them</h4>
+                </div>
+            </div>
+            <div class="carousel-item" style="background-image: url('images/loading_page/avenger.jpg');">
+                <div class="carousel-caption " id="Avenger">
+                    <h1 class="display-2">Avengers</h1>
+                    <h3 class="d-none d-md-block">I love you 3000</h3>
+                </div>
+            </div>
+            <div class="carousel-item" style="background-image: url('images/loading_page/potc.jpg');">
+                <div class="carousel-caption" id="Potc">
+                    <h1>Pirates of the Carribean</h1>
+                    <p class="lead d-none d-md-block">This Is The Day You Will Always Remember As The Day You Almost
+                        Caught Captain Jack
+                        Sparrow.</p>
+                </div>
+            </div>
+
+
+
+
+
+
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+
+    </div>
+
+    <%- include('partials/footer'); %>

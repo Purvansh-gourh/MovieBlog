@@ -1,0 +1,59 @@
+<%- include('../partials/header'); %>
+
+<div class="container" style="min-height: 700px;">
+
+    <div class="jumbotron">
+        <!-- <i class="fas fa-video"></i> -->
+        <div class="container">
+            <h1>Welcome To MovieBlog!</h1>
+            <p>View our hand-picked Movie and Series reviews from all over the world</p>
+            <span>
+                <form class="form-inline my-2 my-lg-0" action="/movies/new1" method="POST">
+                    Add Movie :
+                    <a class="btn btn-outline-success mx-2" href="/movies/new">Add
+                        own</a>
+                    <input class="form-control w-25" type="search" placeholder="add from internet" aria-label="Search"
+                        name="searchbyname" required>
+                    <button class="btn btn-outline-success mx-2 my-sm-0" type="submit"><i
+                            class="fas fa-search"></i></button>
+                </form>
+            </span>
+        </div>
+    </div>
+    <div class="row" id="moviecontent">
+        <% movies.forEach(function(currmovie){ %>
+        <div class="col-12 col-sm-6 col-lg-4 mb-3" id="moviecard">
+            <div class="card border-info mb-3 h-100">
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                        <img src="<%= currmovie.image %>" class="card-img m-md-1 m-sm-0" alt="...">
+                    </div>
+
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= currmovie.name %></h5>
+                            <hr class="border-info">
+                            <p class="card-text" align="justify">
+                                <%- currmovie.review.substring(0,85)+"....."%>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <a class="btn btn-outline-info float-right mr-2" href="/movies/<%= currmovie._id %>">
+                        Read more
+                    </a>
+                </div>
+            </div>
+        </div>
+        <% }) %>
+    </div>
+
+
+</div>
+
+<!-- <img src="/images/cameraman.png" alt="O--O" id="cameraman">
+<hr class="m-0"> -->
+
+<%- include('../partials/contactfooter'); %>
+<%- include('../partials/footer'); %>

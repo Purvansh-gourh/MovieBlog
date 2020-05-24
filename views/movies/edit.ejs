@@ -1,0 +1,58 @@
+<%- include('../partials/header'); %>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-3 col-md-2"></div>
+        <div class="col-lg-6 col-md-8">
+            <form action="/movies/<%= movie._id%>?_method=PUT" method="POST">
+                <div class=" form-group">
+                    <label for="movieName">Movie Name</label>
+                    <input type="text" class="form-control" id="movieName" value="<%= movie.name %>" name="movie[name]"
+                        required>
+                </div>
+                <div class="form-group">
+                    <label for="poster">Movie Image src</label>
+                    <input type="text" class="form-control" id="poster" value="<%= movie.image %>" name="movie[image]"
+                        required>
+                </div>
+                <div class=" form-group">
+                    <label for="imdbid">imdbID <small>
+                            <a href="https://itstillworks.com/12422089/how-to-find-an-imdb-number" target="_blank">
+                                (How to find imdbID)</a>
+                        </small></label>
+                    <input type="text" class="form-control" id="imdbid" name="movie[imdb]" value="<%= movie.imdb %>">
+                </div>
+                <div class=" form-group">
+                    <label for="rating">Rating</label>
+                    <input class="star star-5" id="star-5" type="radio" value="5" name="movie[rating]" />
+                    <label class="star star-5" for="star-5"></label>
+
+                    <input class="star star-4" id="star-4" type="radio" value="4" name="movie[rating]" />
+                    <label class="star star-4" for="star-4"></label>
+
+                    <input class="star star-3" id="star-3" type="radio" value="3" name="movie[rating]" />
+                    <label class="star star-3" for="star-3"></label>
+
+                    <input class="star star-2" id="star-2" type="radio" value="2" name="movie[rating]" />
+                    <label class="star star-2" for="star-2"></label>
+
+                    <input class="star star-1" id="star-1" type="radio" value="1" name="movie[rating]" />
+                    <label class="star star-1" for="star-1"></label>
+
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Review</label>
+                    <textarea class="form-control" id="description" name="movie[review]"><%= movie.review %></textarea>
+                </div>
+                <div class="">
+                    <!-- <button type="submit" class="btn btn-primary mx-auto">Submit</button> -->
+                    <input type="submit" class="btn btn-primary w-100" value="Submit" />
+                </div>
+            </form>
+        </div>
+        <hr>
+        <div class="col-lg-3 col-md-2"></div>
+    </div>
+</div>
+<%- include('../partials/footer'); %>

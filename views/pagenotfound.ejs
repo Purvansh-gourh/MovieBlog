@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <title>MovieBlog</title>
+
+    <!-- Google font -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:200,400,700" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <!-- Custom stlylesheet -->
+    <link type="text/css" rel="stylesheet" href="/stylesheets/pagenotfound.css" />
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark justify-content-end" id="mainnav">
+        <div class="navbar-brand mr-auto">
+
+            <a href="/"><img src="/images/logo.png" style="height: 50px;width: 40px;" title="landing page"></a>
+            <a class="abarlink ml-2" href="/movies" title="movies homepage">
+                MovieBlog</a>
+        </div>
+        <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent">
+            <ul class="navbar-nav text-right">
+                <% if(!currentUser){ %>
+                <li class="nav-item">
+                    <a class="nav-link abarlink" href="/login">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link abarlink" href="/register">Sign Up</a>
+                </li>
+                <% }else{ %>
+                <li class="nav-item">
+                    <a class="nav-link abarlink" href="/dashboard" title="Dashboard">
+                        Signed In as <%= currentUser.username %>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link abarlink" href="/logout">Logout</a>
+                </li>
+                <% } %>
+            </ul>
+        </div>
+    </nav>
+    <div id="notfound">
+        <div class="notfound">
+            <div class="notfound-404">
+                <h1>Oops!</h1>
+                <h2>404 - The Page can't be found</h2>
+            </div>
+            <a href="/movies">Go TO Homepage</a>
+        </div>
+    </div>
+
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+
+</html>
