@@ -39,26 +39,28 @@ This is a movieBlog website which has following features :-
 ## Configure file settings
 1. create a configure.js file in configure directory with following structure
 
-1. module.exports = {
-2.    adminmail: {
-3.        service: 'email service here eg-gmail',
-4.        auth: {
-5.            user: 'your email here',
-6.            pass: 'your password here'
-7.        }
-8.    },
-9.    authorization: {
-10.        google: {
-11.            clientID: 'your clientID here',
-12.            clientSecret: 'your clientSecret here',
-13.            callbackURL: "http://localhost:3000/auth/google/callback"
-14.        },
-15.        facebook: {
-16.            clientID: 'your clientID here',
-17.            clientSecret: 'your clientSecret here',
-18.            callbackURL: 'http://localhost:3000/auth/facebook/callback',
-19.            profileFields: ['id', 'displayName', 'name', 'picture.type(large)', 'email']
-20.        }
-21.    }
-22. }
+<pre>
+ module.exports = {
+    adminmail: {
+        service: 'email service here eg-gmail',
+        auth: {
+            user: 'your email here',
+            pass: 'your password here'
+        }
+    },
+    authorization: {
+        google: {
+            clientID: 'your clientID here',
+            clientSecret: 'your clientSecret here',
+            callbackURL: "http://localhost:3000/auth/google/callback"
+        },
+        facebook: {
+            clientID: 'your clientID here',
+            clientSecret: 'your clientSecret here',
+            callbackURL: 'http://localhost:3000/auth/facebook/callback',
+            profileFields: ['id', 'displayName', 'name', 'picture.type(large)', 'email']
+        }
+    }
+ }
+ </pre>
 
