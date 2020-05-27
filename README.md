@@ -9,7 +9,7 @@ This is a movieBlog website which has following features :-
 4. Delete review.
 5. Delete comment on review.
 
-6. Can search a movie online and add review details from it
+6. Can search a movie online and add review details from it<br>
    API used :- omdb to get movie details and get imdb id of movie
                to find detailed information
 
@@ -24,14 +24,14 @@ This is a movieBlog website which has following features :-
    - Links to your all reviews at one place
    - Edit profile settings
    - Delete account option
-   - Link your Google and Facebook account to single account
+   - Link your Google and Facebook account to single account<br>
      Status of account linked displayed with option to link
    - Displays profile details
   
 ## Installations required
 1.  Node.js (https://nodejs.org/en/download/)
 2.  mongoDB (https://www.mongodb.com/download-center/community?tck=docs_server)
-3.  npm (inside node.js to install packages)
+3.  npm (inside node.js to install packages)<br>
     (installation guide : https://www.guru99.com/download-install-node-js.html)
     
 4.  using npm install necessary packages mentioned in package.json
