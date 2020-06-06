@@ -21,9 +21,8 @@ var commentRoutes = require("./routes/comments"),
 // -------------------------
 //     connect Database
 // -------------------------
-
-mongoose.connect(process.env.MONGODB_URL || "mongodb://localhost/movie_blog",
-    { useNewUrlParser: true, useUnifiedTopology: true });
+const url = process.env.MONGODB_URL || "mongodb://localhost/movie_blog"
+mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 
