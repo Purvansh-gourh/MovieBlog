@@ -198,11 +198,11 @@ label.star:before {
 #likebtn,#unlikebtn{
   color: red;
   font-size: 2rem;
+  transition: all 0.2s ease;
 }
 #likeform:hover,#unlikeform:hover{
   color: red;
-  transform: scale(1.3);
-  transition: all 0.1s;
+  transform: scale(1.2);
 }
 
 
