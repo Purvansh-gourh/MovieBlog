@@ -5,7 +5,7 @@
             <div class="card mb-3 border-info">
                 <div class="row no-gutters">
                     <div class="col-md-4">
-                        <img src="<%= movie.image %>" class="card-img" alt="Image not available">
+                        <img src="<%= movie.image %>" class="card-img p-1" alt="Image not available">
 
                     </div>
                     <div class="col-md-8">
@@ -176,9 +176,10 @@
                     <% movie["searchfor"]["Search"].slice(0,6).forEach(function(currmovie){ %>
                     <div class="col-lg-12 col-md-4 col-sm-4 col-6 mb-2">
                         <div class="card mb-3 h-100">
-                            <div class="row no-gutters">
+                            <div class="row no-gutters h-100">
                                 <div class="col-md-4">
-                                    <img src="<%= currmovie["Poster"] %>" class="card-img" alt="Image Not Available">
+                                    <img src="<%= currmovie["Poster"] %>" class="card-img p-1 h-100"
+                                        alt="Image Not Available">
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body">

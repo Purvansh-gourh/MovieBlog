@@ -36,9 +36,9 @@
         <% movies.forEach(function(currmovie){ %>
         <div class="col-12 col-sm-6 col-lg-4 mb-3" id="moviecard">
             <div class="card border-info mb-3 h-100">
-                <div class="row no-gutters">
+                <div class="row no-gutters h-100">
                     <div class="col-md-4">
-                        <img src="<%= currmovie.image %>" class="card-img m-md-1 m-sm-0" alt="...">
+                        <img src="<%= currmovie.image %>" class="card-img p-1" alt="...">
                     </div>
 
                     <div class="col-md-8">
@@ -49,12 +49,11 @@
                                 <%- currmovie.review.substring(0,85)+"....."%>
                             </p>
                         </div>
+                        <a class="btn btn-outline-info btn-read-more" href="/movies/<%= currmovie._id %>">
+                            Read more
+                        </a>
+                        <div class="btn-read-more-div"></div>
                     </div>
-                </div>
-                <div class="container">
-                    <a class="btn btn-outline-info float-right mr-2" href="/movies/<%= currmovie._id %>">
-                        Read more
-                    </a>
                 </div>
             </div>
         </div>
