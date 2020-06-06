@@ -3,7 +3,7 @@ var express = require("express"),
     passport = require("passport"),
     nodemailer = require('nodemailer'),
     sha256 = require('crypto-js/sha256'),
-    config = require("../configure/configure"),
+    // config = require("../configure/configure"),
     User = require("../models/user");
 
 
@@ -121,7 +121,15 @@ router.get('/forgot', function (req, res) {
 // ----------------------
 //  post forgot password
 // ----------------------
-var transporter = nodemailer.createTransport(config.adminmail);
+var transporter = nodemailer.createTransport(
+    {
+        service: process.env.ADMINMAIL_SERVICE,
+        auth: {
+            user: process.env.ADMINMAIL_AUTH_USER,
+            pass: process.env.ADMINMAIL_AUTH_PASS
+        }
+    }
+);
 
 router.post('/forgot', function (req, res) {
     if (req.isAuthenticated()) {
@@ -138,7 +146,7 @@ router.post('/forgot', function (req, res) {
                 foundUser.save();
                 const mailOptions = {
                     to: foundUser.email,
-                    from: config.adminmail.auth.user,
+                    from: process.env.ADMINMAIL_AUTH_USER,
                     subject: 'MovieBlog Password Reset',
                     text: `
 You are receiving this because you (or someone else) have requested the reset of the password for your account.

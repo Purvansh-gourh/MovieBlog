@@ -114,8 +114,8 @@ router.get("/:id", function (req, res) {
 // ---------------------------
 //    add movie from net
 // ---------------------------
-router.post("/new1", middleWare.isLoggedIn, function (req, res) {
-    var query = req.body.searchbyname;
+router.post("/new1", function (req, res) {
+    var query = req.body.searchbyname.trim();
     var url = "http://www.omdbapi.com/?s=" + query + "&apikey=thewdb";
     request(url, function (error, response, answer) {
         if (!error && response.statusCode == 200) {

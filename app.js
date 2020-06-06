@@ -7,6 +7,9 @@ var express = require("express"),
     // seedDB = require("./seeds"),
     passport = require("passport");
 
+//configure .env
+require('dotenv').config()
+
 // -------------------------
 //     connect routes
 // -------------------------
@@ -18,7 +21,8 @@ var commentRoutes = require("./routes/comments"),
 // -------------------------
 //     connect Database
 // -------------------------
-mongoose.connect("mongodb://localhost/movie_blog", { useNewUrlParser: true, useUnifiedTopology: true });
+const url = process.env.MONGODB_URL || "mongodb://localhost/movie_blog"
+mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 
@@ -76,6 +80,6 @@ app.get('*', function (req, res) {
     res.render('pagenotfound');
 });
 
-app.listen(3000, function () {
+app.listen(process.env.PORT || 3000, process.env.IP, function () {
     console.log("The Blog Server Has Started!");
 });
