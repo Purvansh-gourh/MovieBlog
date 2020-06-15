@@ -26,12 +26,28 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 
+// compress all responses
+const compression = require('compression');
+app.use(compression());
+
+//minifying css files
+const minify = require('@node-minify/core');
+const cleanCSS = require('@node-minify/clean-css');
+
+minify({
+    compressor: cleanCSS,
+    input: './public/stylesheets/main.css',
+    output: './public/stylesheets/main-min.css',
+    callback: function (err, min) { }
+});
+
 // -------------------------------------
 //     Setup use and other requirements
 // -------------------------------------
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
-app.use(express.static(__dirname + "/public"));
+var day = 60 * 1000 * 60 * 24;
+app.use(express.static(__dirname + "/public",{maxAge:day}));
 app.use(methodOverride("_method"));
 app.use(flash());
 app.locals.moment = require('moment');
