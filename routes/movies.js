@@ -9,15 +9,27 @@ var router = express.Router(),
 //    movies homepage
 // ----------------------
 router.get("/", function (req, res) {
-    Movie.find({}, function (err, allMovies) {
-        if (err || !allMovies) {
-            req.flash("error", "Some error occured");
-            res.redirect("/");
+    if (req.query.searchbyname) {
+        Movie.find({name:new RegExp(req.query.searchbyname,'i')},function (err, foundMovies) {
+            if (err || !foundMovies) {
+                req.flash("error", "Some error occured");
+                res.redirect("/");
 
-        } else {
-            res.render("movies/index", { movies: allMovies });
-        }
-    });
+            } else {
+                res.render("movies/index", { movies: foundMovies });
+            }
+        })
+    } else {
+        Movie.find({}, function (err, allMovies) {
+            if (err || !allMovies) {
+                req.flash("error", "Some error occured");
+                res.redirect("/");
+
+            } else {
+                res.render("movies/index", { movies: allMovies });
+            }
+        }); 
+    }    
 });
 
 // ----------------------

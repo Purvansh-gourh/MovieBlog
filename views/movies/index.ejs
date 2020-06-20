@@ -30,6 +30,22 @@
                     </form>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-6 col-md-3 col-lg-2 my-2">
+                    Search a review :
+                </div>
+                <div class="col-12 col-md-9 col-lg-6 my-2">                    
+                    <div class="row w-100">
+                        <div class="col-9 col-md-10">
+                            <input type="text" class="form-control" id="searchField" placeholder="Enter name to search"/>
+                        </div>
+                        <div class="col-3 col-md-2 pl-0">
+                            <button class="btn btn-block btn-outline-success" type="submit" id="searchByName">
+                                <i class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="row" id="moviecontent">
@@ -63,8 +79,22 @@
 
 </div>
 
-<!-- <img src="/images/cameraman.png" alt="O--O" id="cameraman">
-<hr class="m-0"> -->
-
+<script>
+    const sendSearch = ()=>{
+        searchquery = $('#searchField').val()        
+        let url = '/movies?searchbyname=' + searchquery
+        if (searchquery.length === 0)
+            url = '/movies'
+        window.location.href = url 
+    }
+    $('#searchField').keypress((e)=>{
+        if(e.charCode === 13){ 
+            sendSearch()           
+        }
+    })
+    $('#searchByName').on('click',()=>{
+        sendSearch()
+    })
+</script>
 <%- include('../partials/contactfooter'); %>
 <%- include('../partials/footer'); %>
