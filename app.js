@@ -40,6 +40,12 @@ minify({
     output: './public/stylesheets/main-min.css',
     callback: function (err, min) { }
 });
+minify({
+    compressor: cleanCSS,
+    input: './public/stylesheets/pagenotfound.css',
+    output: './public/stylesheets/pagenotfound-min.css',
+    callback: function (err, min) { }
+});
 
 // -------------------------------------
 //     Setup use and other requirements
