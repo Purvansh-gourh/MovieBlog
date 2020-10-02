@@ -10,9 +10,9 @@
         <% data["Search"].forEach(function(currmovie){ %>
         <div class="col-12 col-sm-6 col-md-6 col-lg-4 mb-3">
             <div class="card mb-3 border-info mb-3 h-100">
-                <div class="row no-gutters">
+                <div class="row no-gutters h-100">
                     <div class="col-md-4">
-                        <img src="<%= currmovie["Poster"] %>" class="card-img" alt="Image not available">
+                        <img src="<%= currmovie["Poster"] %>" class="card-img m-md-1 m-sm-0" alt="Image not available">
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
@@ -20,13 +20,14 @@
                             <hr class="border-info">
                             <p class="card-text">Year : <%= currmovie["Year"] %></p>
                             <p class="card-text">Type : <%= currmovie["Type"] %></p>
-                            <button type="button" class="btn btn-outline-secondary new1btn">Select</button>
-
+                            <button type="button"
+                                class="btn btn-outline-secondary btn-read-more new1btn">Select</button>
+                            <div class="btn-read-more-div"></div>
                             <form action="/movies" method="POST" class="new1form" style="display: none;">
                                 <div class="form-group">
-                                    <input type="text" readonly class="form-control" name="movie[name]"
+                                    <input type="text" readonly class="form-control mb-1" name="movie[name]"
                                         value='<%= currmovie["Title"] %>' required>
-                                    <input type="text" readonly class="form-control" name="movie[image]"
+                                    <input type="text" readonly class="form-control mb-1" name="movie[image]"
                                         value='<%= currmovie["Poster"]%>' required>
                                     <input type="text" readonly class="form-control" name="movie[imdb]"
                                         value='<%= currmovie["imdbID"]%>' required>
@@ -51,9 +52,6 @@
                                     <input type="submit" class="btn btn-primary w-100" value="Submit" />
                                 </div>
                             </form>
-
-
-
                         </div>
                     </div>
                 </div>
@@ -71,7 +69,9 @@
 <script>
     $('.new1btn').on('click', function () {
         $(this).css("display", "none");
+        $(this).siblings('.read-more-div').css("display", "none");
         $(this).siblings('.new1form').css("display", "block");
+
     });
 </script>
 <%- include('../partials/footer'); %>

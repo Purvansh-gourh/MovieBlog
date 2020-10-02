@@ -91,7 +91,7 @@
         </div>
         <div class="card m-2">
             <div class="row no-gutters">
-                <div class="col-md-4" id="profileimg">
+                <div class="col-lg-4" id="profileimg">
                     <% if(currentUser.facebook.photo || currentUser.google.photo){ %>
                     <img src="<%= currentUser.facebook.photo ? currentUser.facebook.photo : currentUser.google.photo %>"
                         alt="No profile img available" style="border-radius: 50%;" class="mt-4">
@@ -101,53 +101,81 @@
                     <% } %>
 
                 </div>
-                <div class="col-md-8">
+                <div class="col-lg-8">
                     <div class="card-body">
                         <h5 class="card-title"><%= currentUser.fullName%> </h5>
-                        <div class="row">
-                            <div class="col">
-                                <table class="table table-hover">
-                                    <tr>
-                                        <td>username</td>
-                                        <td>:</td>
-                                        <td><%= currentUser.username %> </td>
-                                    </tr>
-                                    <tr>
-                                        <td>email</td>
-                                        <td>:</td>
-                                        <td><%= currentUser.email %> </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Google</td>
-                                        <% if(currentUser.google.id){ %>
-                                        <td>Linked</td>
-                                        <td><i class="far fa-check-circle" style="color:green"></i></td>
-                                        <% }else{ %>
-                                        <td>pending</td>
-                                        <td>
-                                            <img src="/images/wrong.png" style="width: 1.2em;height: 1.2em">
-                                            <a href="/auth/google" class="btn btn-outline-success float-right">Link
+                        <!-- <div class="row">
+                            <div class="col"> -->
+                        <table class="table table-hover" style="max-width: 100%;">
+                            <tr>
+                                <td>username</td>
+                                <td class="d-none d-md-block">:</td>
+                                <td><%= currentUser.username %> </td>
+                            </tr>
+                            <tr>
+                                <td>email</td>
+                                <td class="d-none d-md-block">:</td>
+                                <td><%= currentUser.email %> </td>
+                            </tr>
+                            <tr>
+                                <td>Google</td>
+                                <td class="d-none d-md-block">:</td>
+                                <% if(currentUser.google.id){ %>
+                                <td>
+                                    <div class="row">
+                                        <div class="col-5 col-md-5">Linked</div>
+                                        <div class="col-4 col-md-4">
+                                            <i class="far fa-check-circle" style="color:green"></i>
+                                        </div>
+                                    </div>
+                                </td>
+                                <% }else{ %>
+                                <td>
+                                    <div class="row">
+                                        <div class="col-5 col-md-5">pending</div>
+                                        <div class="col-2 col-md-2">
+                                            <img src="/images/wrong.png" style="width: 1.2em;height: 1.2em"
+                                                class="ml-auto">
+                                        </div>
+                                        <div class="col-5 col-md-5">
+                                            <a href="/auth/google" class="btn btn-outline-success">Link
                                                 now</a>
-                                        </td>
-                                        <% } %>
-                                    </tr>
-                                    <tr>
-                                        <td>Facebook</td>
-                                        <% if(currentUser.facebook.id){ %>
-                                        <td>Linked</td>
-                                        <td><i class="far fa-check-circle" style="color:green"></i></td>
-                                        <% }else{ %>
-                                        <td>pending</td>
-                                        <td>
-                                            <img src="/images/wrong.png" style="width: 1.2em;height: 1.2em">
-                                            <a href="/auth/facebook" class="btn btn-outline-success float-right">Link
+                                        </div>
+                                    </div>
+                                </td>
+                                <% } %>
+                            </tr>
+                            <tr>
+                                <td>Facebook</td>
+                                <td class="d-none d-md-block">:</td>
+                                <% if(currentUser.facebook.id){ %>
+                                <td>
+                                    <div class="row">
+                                        <div class="col-5 col-md-5">Linked</div>
+                                        <div class="col-4 col-md-4">
+                                            <i class="far fa-check-circle" style="color:green"></i>
+                                        </div>
+                                    </div>
+                                </td>
+                                <% }else{ %>
+                                <td>
+                                    <div class="row">
+                                        <div class="col-5 col-md-5">pending</div>
+                                        <div class="col-2 col-md-2">
+                                            <img src="/images/wrong.png" style="width: 1.2em;height: 1.2em"
+                                                class="ml-auto">
+                                        </div>
+                                        <div class="col-5 col-md-5">
+                                            <a href="/auth/facebook" class="btn btn-outline-success">Link
                                                 now</a>
-                                        </td>
-                                        <% } %>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <% } %>
+                            </tr>
+                        </table>
+                        <!-- </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -270,7 +298,6 @@
 
 <script>
     function deleteAccount() {
-        console.log("here");
         if (confirm("Do you really want to delete your account ?\n This will automatically delete all the posts")) {
             $("#deleteform").submit();
         }
@@ -284,77 +311,76 @@
         for (var i = 1; i <= labeldata.length; i++)
             labelindex.push(i.toString());
 
-        console.log(labelindex);
-        console.log(likes);
         backColor = [
-            'rgb(252, 243, 207,0.8)',
+            'rgb(213, 245, 227,0.8)',
             'rgb(246, 221, 204,0.8)',
+            'rgb(252, 243, 207,0.8)',
             'rgb(214, 234, 248,0.8)',
             'rgb(214, 219, 223,0.8)',
-            'rgb(213, 245, 227,0.8)',
             'rgb(232, 218, 239,0.8)'
         ];
         bordColor = [
-            'rgb(252, 243, 207,1)',
+            'rgb(213, 245, 227,1)',
             'rgb(246, 221, 204,1)',
+            'rgb(252, 243, 207,1)',
             'rgb(214, 234, 248,1)',
             'rgb(214, 219, 223,1)',
-            'rgb(213, 245, 227,1)',
             'rgb(232, 218, 239,1)'
         ];
 
-        var ctx1 = document.getElementById("myChart1").getContext('2d');
-        var newChart = new Chart(ctx1, {
-            type: 'pie',
-            data: {
-                labels: labeldata,
-                datasets: [{
-                    label: '# of likes',
-                    data: likes,
-                    backgroundColor: backColor,
-                    borderColor: bordColor,
-                    hoverBorderColor: '#1B2631',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                segmentShowStroke: true,
-                maintainAspectRatio: true,
-                animateScale: true,
-                animation: {
-                    duration: 1000,
-                    easing: 'easeInCubic',
-                }
+        if (labelindex.length > 0) {
+            var ctx1 = document.getElementById("myChart1").getContext('2d');
+            var newChart = new Chart(ctx1, {
+                type: 'pie',
+                data: {
+                    labels: labeldata,
+                    datasets: [{
+                        label: '# of likes',
+                        data: likes,
+                        backgroundColor: backColor,
+                        borderColor: bordColor,
+                        hoverBorderColor: '#1B2631',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    segmentShowStroke: true,
+                    maintainAspectRatio: true,
+                    animateScale: true,
+                    animation: {
+                        duration: 1000,
+                        easing: 'easeInCubic',
+                    }
 
-            }
-        });
-        likes.push(0);
-        var ctx2 = document.getElementById("myChart2").getContext('2d');
-        var newChart = new Chart(ctx2, {
-            type: 'bar',
-            data: {
-                labels: labelindex,
-                datasets: [{
-                    label: '# of likes',
-                    data: likes,
-                    backgroundColor: backColor,
-                    borderColor: bordColor,
-                    hoverBorderColor: '#1B2631',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                segmentShowStroke: true,
-                maintainAspectRatio: true,
-                animateScale: true,
-                animation: {
-                    duration: 1000,
-                    easing: 'easeInCubic',
                 }
-
-            }
-        });
+            });
+            likes.push(0);
+            var ctx2 = document.getElementById("myChart2").getContext('2d');
+            var newChart = new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                    labels: labelindex,
+                    datasets: [{
+                        label: '# of likes',
+                        data: likes,
+                        backgroundColor: backColor,
+                        borderColor: bordColor,
+                        hoverBorderColor: '#1B2631',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    segmentShowStroke: true,
+                    maintainAspectRatio: true,
+                    animateScale: true,
+                    animation: {
+                        duration: 1000,
+                        easing: 'easeInCubic',
+                    },
+                }
+            });
+        }
     });
 </script>

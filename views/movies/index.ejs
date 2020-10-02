@@ -7,26 +7,54 @@
         <div class="container">
             <h1>Welcome To MovieBlog!</h1>
             <p>View our hand-picked Movie and Series reviews from all over the world</p>
-            <span>
-                <form class="form-inline my-2 my-lg-0" action="/movies/new1" method="POST">
-                    Add Movie :
-                    <a class="btn btn-outline-success mx-2" href="/movies/new">Add
+            <div class="row">
+                <div class="col-6 col-md-3 col-lg-2 my-2">
+                    Add a review :
+                </div>
+                <div class="col-5 col-md-3 col-lg-2 my-2">
+                    <a class="btn btn-block btn-outline-success mx-2" href="/movies/new">Add
                         own</a>
-                    <input class="form-control w-25" type="search" placeholder="add from internet" aria-label="Search"
-                        name="searchbyname" required>
-                    <button class="btn btn-outline-success mx-2 my-sm-0" type="submit"><i
-                            class="fas fa-search"></i></button>
-                </form>
-            </span>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4 my-2">
+                    <form action="/movies/new1" class="w-100" method="POST">
+                        <div class="row w-100">
+                            <div class="col-9 col-md-9">
+                                <input class="form-control w-100" type="search" placeholder="add from internet"
+                                    aria-label="Search" name="searchbyname" required>
+                            </div>
+                            <div class="col-3 col-md-3 pl-0">
+                                <button class="btn btn-block btn-outline-success" type="submit"><i
+                                        class="fas fa-search"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 col-md-3 col-lg-2 my-2">
+                    Search a review :
+                </div>
+                <div class="col-12 col-md-9 col-lg-6 my-2">                    
+                    <div class="row w-100">
+                        <div class="col-9 col-md-10">
+                            <input type="text" class="form-control" id="searchField" placeholder="Enter name to search"/>
+                        </div>
+                        <div class="col-3 col-md-2 pl-0">
+                            <button class="btn btn-block btn-outline-success" type="submit" id="searchByName">
+                                <i class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="row" id="moviecontent">
         <% movies.forEach(function(currmovie){ %>
         <div class="col-12 col-sm-6 col-lg-4 mb-3" id="moviecard">
             <div class="card border-info mb-3 h-100">
-                <div class="row no-gutters">
+                <div class="row no-gutters h-100">
                     <div class="col-md-4">
-                        <img src="<%= currmovie.image %>" class="card-img m-md-1 m-sm-0" alt="...">
+                        <img src="<%= currmovie.image %>" class="card-img p-1" alt="...">
                     </div>
 
                     <div class="col-md-8">
@@ -37,12 +65,11 @@
                                 <%- currmovie.review.substring(0,85)+"....."%>
                             </p>
                         </div>
+                        <a class="btn btn-outline-info btn-read-more" href="/movies/<%= currmovie._id %>">
+                            Read more
+                        </a>
+                        <div class="btn-read-more-div"></div>
                     </div>
-                </div>
-                <div class="container">
-                    <a class="btn btn-outline-info float-right mr-2" href="/movies/<%= currmovie._id %>">
-                        Read more
-                    </a>
                 </div>
             </div>
         </div>
@@ -52,8 +79,22 @@
 
 </div>
 
-<!-- <img src="/images/cameraman.png" alt="O--O" id="cameraman">
-<hr class="m-0"> -->
-
+<script>
+    const sendSearch = ()=>{
+        searchquery = $('#searchField').val()        
+        let url = '/movies?searchbyname=' + searchquery
+        if (searchquery.length === 0)
+            url = '/movies'
+        window.location.href = url 
+    }
+    $('#searchField').keypress((e)=>{
+        if(e.charCode === 13){ 
+            sendSearch()           
+        }
+    })
+    $('#searchByName').on('click',()=>{
+        sendSearch()
+    })
+</script>
 <%- include('../partials/contactfooter'); %>
 <%- include('../partials/footer'); %>

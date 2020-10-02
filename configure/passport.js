@@ -1,5 +1,5 @@
 var User = require("../models/user"),
-    config = require("./configure"),
+    // config = require("./configure"),
     passport = require("passport"),
     LocalStrategy = require("passport-local"),
     GoogleStrategy = require('passport-google-oauth').OAuth2Strategy,
@@ -26,9 +26,9 @@ passport.use(new LocalStrategy(User.authenticate()));
 // ---------------------------
 passport.use(new GoogleStrategy({
 
-    clientID: config.authorization.google.clientID,
-    clientSecret: config.authorization.google.clientSecret,
-    callbackURL: config.authorization.google.callbackURL,
+    clientID: process.env.AUTHORIZATION_GOOGLE_CLIENTID,
+    clientSecret: process.env.AUTHORIZATION_GOOGLE_CLIENT_SECRET,
+    callbackURL: process.env.AUTHORIZATION_GOOGLE_CALLBACKURL,
     passReqToCallback: true
 
 }, function (req, accessToken, refreshToken, profile, done) {
@@ -105,10 +105,10 @@ passport.use(new GoogleStrategy({
 // ---------------------------
 passport.use(new FacebookStrategy({
 
-    clientID: config.authorization.facebook.clientID,
-    clientSecret: config.authorization.facebook.clientSecret,
-    callbackURL: config.authorization.facebook.callbackURL,
-    profileFields: config.authorization.facebook.profileFields,
+    clientID: process.env.AUTHORIZATION_FACEBOOK_CLIENTID,
+    clientSecret: process.env.AUTHORIZATION_FACEBOOK_CLIENTSECRET,
+    callbackURL: process.env.AUTHORIZATION_FACEBOOK_CALLBACKURL,
+    profileFields: ['id', 'displayName', 'name', 'picture.type(large)', 'email'],
     passReqToCallback: true,
     enableProof: true
 

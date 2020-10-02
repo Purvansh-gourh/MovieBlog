@@ -9,15 +9,27 @@ var router = express.Router(),
 //    movies homepage
 // ----------------------
 router.get("/", function (req, res) {
-    Movie.find({}, function (err, allMovies) {
-        if (err || !allMovies) {
-            req.flash("error", "Some error occured");
-            res.redirect("/");
+    if (req.query.searchbyname) {
+        Movie.find({name:new RegExp(req.query.searchbyname,'i')},function (err, foundMovies) {
+            if (err || !foundMovies) {
+                req.flash("error", "Some error occured");
+                res.redirect("/");
 
-        } else {
-            res.render("movies/index", { movies: allMovies });
-        }
-    });
+            } else {
+                res.render("movies/index", { movies: foundMovies });
+            }
+        })
+    } else {
+        Movie.find({}, function (err, allMovies) {
+            if (err || !allMovies) {
+                req.flash("error", "Some error occured");
+                res.redirect("/");
+
+            } else {
+                res.render("movies/index", { movies: allMovies });
+            }
+        }); 
+    }    
 });
 
 // ----------------------
@@ -114,8 +126,8 @@ router.get("/:id", function (req, res) {
 // ---------------------------
 //    add movie from net
 // ---------------------------
-router.post("/new1", middleWare.isLoggedIn, function (req, res) {
-    var query = req.body.searchbyname;
+router.post("/new1", function (req, res) {
+    var query = req.body.searchbyname.trim();
     var url = "http://www.omdbapi.com/?s=" + query + "&apikey=thewdb";
     request(url, function (error, response, answer) {
         if (!error && response.statusCode == 200) {

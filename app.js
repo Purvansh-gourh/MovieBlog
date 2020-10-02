@@ -7,6 +7,9 @@ var express = require("express"),
     // seedDB = require("./seeds"),
     passport = require("passport");
 
+//configure .env
+require('dotenv').config()
+
 // -------------------------
 //     connect routes
 // -------------------------
@@ -18,16 +21,39 @@ var commentRoutes = require("./routes/comments"),
 // -------------------------
 //     connect Database
 // -------------------------
-mongoose.connect("mongodb://localhost/movie_blog", { useNewUrlParser: true, useUnifiedTopology: true });
+const url = process.env.MONGODB_URL || "mongodb://localhost/movie_blog"
+mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
+
+// compress all responses
+const compression = require('compression');
+app.use(compression());
+
+//minifying css files
+const minify = require('@node-minify/core');
+const cleanCSS = require('@node-minify/clean-css');
+
+minify({
+    compressor: cleanCSS,
+    input: './public/stylesheets/main.css',
+    output: './public/stylesheets/main-min.css',
+    callback: function (err, min) { }
+});
+minify({
+    compressor: cleanCSS,
+    input: './public/stylesheets/pagenotfound.css',
+    output: './public/stylesheets/pagenotfound-min.css',
+    callback: function (err, min) { }
+});
 
 // -------------------------------------
 //     Setup use and other requirements
 // -------------------------------------
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
-app.use(express.static(__dirname + "/public"));
+var day = 60 * 1000 * 60 * 24;
+app.use(express.static(__dirname + "/public",{maxAge:day}));
 app.use(methodOverride("_method"));
 app.use(flash());
 app.locals.moment = require('moment');
@@ -76,6 +102,6 @@ app.get('*', function (req, res) {
     res.render('pagenotfound');
 });
 
-app.listen(3000, function () {
+app.listen(process.env.PORT || 3000, process.env.IP, function () {
     console.log("The Blog Server Has Started!");
 });
